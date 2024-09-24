@@ -1,7 +1,8 @@
 import React from "react";
+import { PageContainer } from "../components/PageContent/PageContainer.styled";
 
 const MainPage = () => {
-  return <div>MainPage</div>;
+  return <PageContainer>MainPage</PageContainer>;
 };
 
 export default MainPage;
