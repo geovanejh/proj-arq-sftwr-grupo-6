@@ -22,7 +22,7 @@ const ReviewsBar = (props) => {
         <CircularProgressbar
           value={value}
           text={`${value} %`}
-          circleRatio={0.7}
+          circleRatio={0.7} /* Make the circle only 0.7 of the full diameter */
           styles={{
             trail: {
               strokeLinecap: "butt",

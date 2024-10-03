@@ -1,5 +1,5 @@
+import { useNavigate } from "react-router-dom";
 import { ListItem } from "../../FlatList/ListItem.styled";
-import { fixDecimals } from "../../utils/utils";
 
 const MachinePanelItem = ({
   id,
@@ -10,8 +10,13 @@ const MachinePanelItem = ({
   disponibilidade,
   qualidade,
 }) => {
+  const navigate = useNavigate();
+
   return (
-    <ListItem layout={layout}>
+    <ListItem
+      layout={layout}
+      onClick={() => navigate(`/indicadores/machine/${id}`)}
+    >
       <div>
         <p>{id}</p>
       </div>
@@ -19,16 +24,16 @@ const MachinePanelItem = ({
         <p>{machine}</p>
       </div>
       <div>
-        <p>{fixDecimals(geral * 100, 2)}%</p>
+        <p>{geral}%</p>
       </div>
       <div>
-        <p>{fixDecimals(disponibilidade * 100, 2)}%</p>
+        <p>{disponibilidade}%</p>
       </div>
       <div>
-        <p>{fixDecimals(performance * 100, 2)}%</p>
+        <p>{performance}%</p>
       </div>
       <div>
-        <p>{fixDecimals(qualidade * 100, 2)}%</p>
+        <p>{qualidade}%</p>
       </div>
     </ListItem>
   );

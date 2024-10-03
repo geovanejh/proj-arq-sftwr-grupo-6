@@ -6,17 +6,20 @@ import { AuthPage } from "../components/Auth/AuthPage";
 import { AuthContainer } from "../components/Auth/AuthContainer";
 import { AuthForm } from "../components/Auth/LoginForm";
 import FormField from "../components/Form/FormField/FormField";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { handleLogin } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
-      login: "",
-      senha: "",
+      email: "",
+      password: "",
     },
     onSubmit: (values) => {
-      navigate("/home");
+      handleLogin(values);
     },
   });
 
@@ -26,27 +29,27 @@ const Login = () => {
         <img src={logo} alt="ícone do Sistema MES" />
         <h3>Sistema MES</h3>
         <h2>Entre na sua conta </h2>
-        <h5>Digite seu login e senha abaixo</h5>
+        <h5>Digite seu email e senha abaixo</h5>
         <AuthForm onSubmit={formik.handleSubmit}>
           <FormField
-            id="login"
+            id="email"
             type="text"
-            label="Login"
+            label="email"
             onChange={formik.handleChange}
-            value={formik.values.login}
+            value={formik.values.email}
             onBlur={formik.handleBlur}
             formik={formik}
-            placeholder="Login"
+            placeholder="Email"
           />
           <FormField
-            id="senha"
+            id="password"
             type="password"
-            label="Senha"
+            label="password"
             onChange={formik.handleChange}
-            value={formik.values.senha}
+            value={formik.values.password}
             onBlur={formik.handleBlur}
             formik={formik}
-            placeholder="Senha"
+            placeholder="Password"
           />
           <Button primary type="submit">
             Log In

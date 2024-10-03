@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -8,9 +8,10 @@ import OEEMachine from "./pages/OEEMachine";
 import { MainContent, RouterContainer } from "./Routers.styled";
 import Header from "./components/Header/Header";
 import NotFound from "./pages/NotFound";
+import { AuthContext } from "./context/AuthContext";
 
 const Router = () => {
-  const auth = true;
+  const { auth } = useContext(AuthContext);
 
   return (
     <RouterContainer>
@@ -24,9 +25,8 @@ const Router = () => {
             </>
           ) : (
             <>
-              <Route path="/home" element={<MainPage />} />
               <Route path="/indicadores" element={<OEE />} />
-              <Route path="/OEE/machine/:id" element={<OEEMachine />} />
+              <Route path="/indicadores/machine/:id" element={<OEEMachine />} />
             </>
           )}
           <Route path="*" element={<NotFound />}></Route>

@@ -14,6 +14,11 @@ export const MachinesPanelContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    input {
+      height: 24px;
+      width: 240px;
+    }
   }
 
   > div > h2 {

@@ -1,20 +1,23 @@
 import DetailInformation from "../../Charts/CircularProgressBar/DetailInformation";
 import { MainPanelContainer } from "./MainPanel.styled";
 
-const MainPanel = ({}) => {
+const MainPanel = ({ oee }) => {
   const lang = "pt-BR";
 
   return (
     <MainPanelContainer>
       <div>
-        <DetailInformation lang={lang} /> Qualidade
+        <DetailInformation score={oee.geral} /> Geral
       </div>
       <div>
-        <DetailInformation lang={lang} />
+        <DetailInformation score={oee.qualidade} /> Qualidade
+      </div>
+      <div>
+        <DetailInformation score={oee.performance} />
         Performance
       </div>
       <div>
-        <DetailInformation lang={lang} /> Disponibilidade
+        <DetailInformation score={oee.disponibilidade} /> Disponibilidade
       </div>
     </MainPanelContainer>
   );

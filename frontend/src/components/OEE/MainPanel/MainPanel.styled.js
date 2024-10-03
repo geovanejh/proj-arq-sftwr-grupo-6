@@ -7,7 +7,13 @@ export const MainPanelContainer = styled.div`
   padding: 24px;
   display: flex;
   justify-content: space-evenly;
-  border-radius: 10px;
+  border-radius: 0px 0px 8px 8px;
+  align-items: center;
+
+  > div:first-child {
+    height: 200px;
+    border-right: 1px solid #dfe0eb;
+  }
 
   > div {
     display: flex;
@@ -15,5 +21,7 @@ export const MainPanelContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 12px;
+    height: 170px;
+    width: 300px;
   }
 `;

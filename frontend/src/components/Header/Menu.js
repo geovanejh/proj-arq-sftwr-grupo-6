@@ -9,9 +9,11 @@ import { LuWrench } from "react-icons/lu";
 import { FaToolbox } from "react-icons/fa";
 import { LuPencilRuler } from "react-icons/lu";
 import { GoGraph } from "react-icons/go";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Menu = () => {
-  const auth = true;
+  const { handleLogout } = useContext(AuthContext);
   const { pathname: caminho } = useLocation();
 
   return (
@@ -19,7 +21,6 @@ const Menu = () => {
       <ul>
         <Item
           name="Home"
-          url="/home"
           icon={<LuHome />}
           active={caminho.includes("/home") ? "active" : ""}
         />
@@ -55,7 +56,7 @@ const Menu = () => {
           active={caminho.includes("/people") ? "active" : ""}
         />
         <li>
-          <button>
+          <button onClick={handleLogout}>
             <MdLogout />
             <p>Sair</p>
           </button>

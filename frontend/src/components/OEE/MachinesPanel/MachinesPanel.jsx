@@ -1,3 +1,4 @@
+import SearchField from "../../Form/SearchField/SearchField";
 import MachinePanelItem from "./MachinePanelItem";
 import { List, MachinesPanelContainer } from "./MachinesPanel.styled";
 
@@ -8,7 +9,7 @@ const MachinesPanel = ({ machines }) => {
     <MachinesPanelContainer>
       <div>
         <h2>Máquinas</h2>
-        <input type="text" />
+        <SearchField placeholder="Pesquisar..." />
       </div>
       <ul>
         <li>
@@ -25,11 +26,11 @@ const MachinesPanel = ({ machines }) => {
           layout="1fr 1fr 1fr 1fr 1fr 1fr"
           id={e.id_maquina}
           key={i}
-          machine={e.maquina}
-          geral={e.OOEgeral}
-          performance={e.performance_medio}
-          disponibilidade={e.disponibilidade_medio}
-          qualidade={e.qualidade_medio}
+          machine={e.nome_maquina}
+          geral={e.geral}
+          performance={e.performance}
+          disponibilidade={e.disponibilidade}
+          qualidade={e.qualidade}
         />
       ))}
     </MachinesPanelContainer>

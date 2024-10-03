@@ -17,7 +17,11 @@ const FormField = ({
   const props = formik.getFieldProps(id);
   return (
     <Fields>
-      <Label htmlFor={id} errors={field.error} touched={field.touched}>
+      <Label
+        htmlFor={id}
+        errors={field.error}
+        touched={field.touched ? field.touched : undefined}
+      >
         {label}
       </Label>
       <Input
@@ -30,7 +34,7 @@ const FormField = ({
         value={props.value}
         onBlur={onBlur}
         errors={field.error}
-        touched={field.touched}
+        touched={field.touched ? field.touched : undefined}
       />
       {field.touched && field.error ? <span>{field.error}</span> : null}
     </Fields>
