@@ -94,26 +94,6 @@ app.get('/indicadores/oee', authenticateJWT, async (req, res) => {
     }
 });
 
-// Rota para acessar indicadores de OEE de todas as máquinas com atributos separados
-app.get('/indicadores/separados/maquinas', authenticateJWT, async (req, res) => {
-    try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/separados/maquinas`);
-        res.json(response.data);
-    } catch (error) {
-        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar os indicadores de OEE.' });
-    }
-});
-
-// Rota para acessar indicadores OEE geral de todas as máquinas
-app.get('/indicadores/oeegeral/maquinas', authenticateJWT, async (req, res) => {
-    try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oeegeral/maquinas`);
-        res.json(response.data);
-    } catch (error) {
-        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar os indicadores de OEE.' });
-    }
-});
-
 // Rota para acessar indicadores de OEE de uma máquina específica
 app.get('/indicadores/oee/:maquina', authenticateJWT, async (req, res) => {
     try {
@@ -148,7 +128,7 @@ app.get('/indicadores/disponibilidade/:maquina', authenticateJWT, async (req, re
 // Rota para acessar a performance media de uma maquina especifica
 app.get('/indicadores/performance', authenticateJWT, async (req, res) => {
     try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/qualidade`);
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/performance`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE da máquina.' });
