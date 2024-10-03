@@ -1,8 +1,18 @@
 import { Label } from "../Label.styled";
 import { Input } from "../Input.styled";
 import { Fields } from "./FormField.styled";
+import React from "react";
 
-const FormField = ({ label, id, type, onChange, onBlur, placeholder, formik, width }) => {
+const FormField = ({
+  label,
+  id,
+  type,
+  onChange,
+  onBlur,
+  placeholder,
+  formik,
+  width,
+}) => {
   const field = formik.getFieldMeta(id);
   const props = formik.getFieldProps(id);
   return (

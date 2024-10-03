@@ -9,5 +9,5 @@ export const HeaderContainer = styled.header`
   flex-direction: column;
   padding: 36px 0;
   position: fixed;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  border-right: 1px solid #dfe0eb;
 `;

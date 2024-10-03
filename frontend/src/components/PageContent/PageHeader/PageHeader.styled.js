@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const PageHeaderContainer = styled.div`
   background-color: #ffffff;
   padding: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  border-bottom: 1px solid #dfe0eb;
 
   > h1 {
     font-style: normal;
