@@ -85,9 +85,9 @@ app.get('/user/:id', authenticateJWT, async (req, res) => {
 });
 
 // Rota para acessar indicadores de OEE de todas as máquinas
-app.get('/indicadores/oeegeral', authenticateJWT, async (req, res) => {
+app.get('/indicadores/oee', authenticateJWT, async (req, res) => {
     try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oeegeral`);
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oee`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).json({ message: 'Erro ao acessar os indicadores de OEE.' });
