@@ -154,42 +154,62 @@ class Indicadores {
       JOIN maquinas m ON io.id_maquina = m.id_maquina
       WHERE io.id_maquina = '${id_maquina}' 
         AND io.data_hora BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'
-      GROUP BY io.id_operador
-      ORDER BY io.id_operador;
+      GROUP BY o.id_operador
+      ORDER BY o.id_operador;
     `;
-    
+
     try {
-      const [rows] = await this.pool.query(query);
-      
-      if (rows.length === 0) {
-        return {};  // Retornar vazio se não houver resultados
-      }
-  
-      // Estrutura para armazenar a resposta final
-      let result = {
-        id_maquina: rows[0].id_maquina,        // Usar a primeira linha para obter o id e nome da máquina
-        nome_maquina: rows[0].maquina,
-        operadores: []
-      };
-  
-      // Iterando sobre os resultados e construindo o array de operadores
-      rows.forEach(row => {
-        result.operadores.push({
-          id_operador: row.id_operador,
-          nome_operador: row.operador,
-          geral: `${row.OEE}%`,
-          performance: `${row.performance}%`,
-          qualidade: `${row.qualidade}%`,
-          disponibilidade: `${row.disponibilidade}%`
+        const [rows] = await this.pool.query(query);
+        
+        if (rows.length === 0) {
+            return {};  // Retornar vazio se não houver resultados
+        }
+
+        // Variáveis para acumular as médias gerais
+        let somaOEE = 0, somaPerformance = 0, somaQualidade = 0, somaDisponibilidade = 0;
+        let count = rows.length;
+
+        // Estrutura para armazenar o resultado final
+        let result = {
+            id_maquina: rows[0].id_maquina, // Usar a primeira linha para obter o id da máquina
+            OEE_geral: "",
+            performance_geral: "",
+            qualidade_geral: "",
+            disponibilidade_geral: "",
+            operadores: []
+        };
+
+        // Iterar sobre os resultados e construir o array de operadores, acumulando as métricas gerais
+        rows.forEach(row => {
+            // Acumular os valores para as médias gerais
+            somaOEE += row.OEE;
+            somaPerformance += row.performance;
+            somaQualidade += row.qualidade;
+            somaDisponibilidade += row.disponibilidade;
+
+            // Adicionar os dados de cada operador ao array de operadores
+            result.operadores.push({
+                id_operador: row.id_operador,
+                OEE: `${row.OEE}%`,
+                performance: `${row.performance}%`,
+                qualidade: `${row.qualidade}%`,
+                disponibilidade: `${row.disponibilidade}%`
+            });
         });
-      });
-      
-      return result;
+
+        // Calcular as médias gerais e formatar o resultado
+        result.OEE_geral = `${(somaOEE / count).toFixed(2)}%`;
+        result.performance_geral = `${(somaPerformance / count).toFixed(2)}%`;
+        result.qualidade_geral = `${(somaQualidade / count).toFixed(2)}%`;
+        result.disponibilidade_geral = `${(somaDisponibilidade / count).toFixed(2)}%`;
+
+        return result;
     } catch (error) {
-      console.error('Erro ao buscar OEE dos operadores por dia:', error);
-      throw error;
+        console.error('Erro ao buscar OEE dos operadores por dia:', error);
+        throw error;
     }
-  }
+}
+
   
 
 }
