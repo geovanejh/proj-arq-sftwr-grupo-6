@@ -138,7 +138,6 @@ class Indicadores {
     }
   }
   async get_OEE_Operadores_PorDia(id_maquina, startDate, endDate) {
-    // Ajustando a query para trazer as médias corretamente
     let query = `
       SELECT 
         m.nome_maquina AS maquina,
@@ -162,16 +161,16 @@ class Indicadores {
         const [rows] = await this.pool.query(query);
         
         if (rows.length === 0) {
-            return {};  // Retornar vazio se não houver resultados
+            return {};  
         }
 
-        // Variáveis para acumular as médias gerais
+        
         let somaOEE = 0, somaPerformance = 0, somaQualidade = 0, somaDisponibilidade = 0;
         let count = rows.length;
 
-        // Estrutura para armazenar o resultado final
+       
         let result = {
-            id_maquina: rows[0].id_maquina, // Usar a primeira linha para obter o id da máquina
+            id_maquina: rows[0].id_maquina, 
             OEE_geral: "",
             performance_geral: "",
             qualidade_geral: "",
@@ -179,17 +178,17 @@ class Indicadores {
             operadores: []
         };
 
-        // Iterar sobre os resultados e construir o array de operadores, acumulando as métricas gerais
+     
         rows.forEach(row => {
-            // Acumular os valores para as médias gerais
+            
             somaOEE += row.OEE;
             somaPerformance += row.performance;
             somaQualidade += row.qualidade;
             somaDisponibilidade += row.disponibilidade;
 
-            // Adicionar os dados de cada operador ao array de operadores
             result.operadores.push({
                 id_operador: row.id_operador,
+                nome_operador: row.operador,
                 OEE: `${row.OEE}%`,
                 performance: `${row.performance}%`,
                 qualidade: `${row.qualidade}%`,
@@ -197,7 +196,6 @@ class Indicadores {
             });
         });
 
-        // Calcular as médias gerais e formatar o resultado
         result.OEE_geral = `${(somaOEE / count).toFixed(2)}%`;
         result.performance_geral = `${(somaPerformance / count).toFixed(2)}%`;
         result.qualidade_geral = `${(somaQualidade / count).toFixed(2)}%`;
