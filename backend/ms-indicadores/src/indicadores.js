@@ -3,10 +3,10 @@ const mysql = require('mysql2/promise');
 class Indicadores {
   constructor() {
     this.pool = mysql.createPool({
-      host: 'localhost',     // Altere para o host do seu banco de dados
-      user: 'indicador_user', // Nome do usuário
-      password: '12qwaszx',   // Senha do usuário
-      database: 'mes_app',    // Nome do banco de dados
+      host: 'localhost',     
+      user: 'indicador_user', 
+      password: '12qwaszx',   
+      database: 'mes_app',    
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0
@@ -32,19 +32,17 @@ class Indicadores {
       query += ` AND io.data_hora BETWEEN '${startDate}' AND '${endDate}'`;
     }
   
-    // Adicionar GROUP BY para resolver o problema de agregação
-    query += ' GROUP BY io.id_maquina';
+      query += ' GROUP BY io.id_maquina';
   
     try {
       const [rows] = await this.pool.query(query);
   
-      // Garantir que o resultado contenha algo e esteja na estrutura correta
-      if (rows.length === 0) {
+            if (rows.length === 0) {
         return null;
       }
   
-      const row = rows[0]; // Pegando a primeira linha (já que agrupamos por máquina)
-      
+      const row = rows[0]; 
+
       if (id_maquina)
       return {
         id_maquina: row.id_maquina,
@@ -111,24 +109,22 @@ class Indicadores {
       WHERE 1=1
     `;
     
-    // Adicionando filtros se o operador for especificado
     if (id_operador) {
       query += ` AND io.id_operador = '${id_operador}'`;
     }
   
-    // Adicionando filtros de data, se forem fornecidos
+    
     if (startDate && endDate) {
       query += ` AND io.data_hora BETWEEN '${startDate}' AND '${endDate}'`;
     }
   
-    // Agrupando pelo operador
+    
     query += ' GROUP BY io.id_operador';
   
     try {
       const [rows] = await this.pool.query(query);
   
-      // Mapeando a estrutura de retorno conforme solicitado
-      return rows.map(row => ({
+     return rows.map(row => ({
         id_operador: row.id_operador,
         geral: row.geral,
         performance: row.performance,
