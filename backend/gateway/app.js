@@ -75,10 +75,8 @@ app.post('/auth/register', async (req, res) => {
 app.get('/user/:id', authenticateJWT, async (req, res) => {
     try {
         // Encaminha a requisição para o microserviço de usuário (rota protegida)
-        const response = await axios.get(`${process.env.USER_SERVICE_URL}/user/${req.params.id}`, {
-            headers: { Authorization: req.headers.authorization }
-        });
-        res.json(response.data);  // Retorna a resposta do microserviço para o cliente
+        const response = await axios.get(`${process.env.USER_SERVICE_URL}/user/${req.params.id}`);
+        res.json(response.data);  
     } catch (error) {
         res.status(error.response?.status || 500).json(error.response?.data || { message: 'Erro ao acessar o usuário' });
     }
