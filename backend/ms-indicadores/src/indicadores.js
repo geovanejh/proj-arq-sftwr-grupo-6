@@ -68,7 +68,7 @@ class Indicadores {
   async listMachines(startDate = null, endDate = null) {
     let query = `
       SELECT 
-      m.nome_maquina, 
+      m.id_maquina, 
       CONCAT(ROUND(AVG(oee) * 100, 0), '%') AS OEE,
       CONCAT(ROUND(AVG(disponibilidade) * 100, 0), '%') AS Disponibilidade,
       CONCAT(ROUND(AVG(desempenho) * 100, 0), '%') AS Desempenho,

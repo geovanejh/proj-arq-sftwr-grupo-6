@@ -62,6 +62,18 @@ app.get('/indicadores/maquinas', async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar lista de máquinas.' });
     }
 });
+
+// Rota para obter lista de maquinas por data
+app.get('/indicadores/maquinas/:startDate/:endDate', async (req, res) => {
+    const { startDate, endDate } = req.params;
+    try {
+        const maquinas = await indicadores.listMachines(startDate, endDate);
+        res.status(200).json(maquinas);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar lista de máquinas.' });
+    }
+});
+
 // Rota para obter a Disponibilidade média de todas as máquinas
 app.get('/indicadores/disponibilidade', async (req, res) => {
     try {
