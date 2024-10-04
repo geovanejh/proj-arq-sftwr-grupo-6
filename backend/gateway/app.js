@@ -206,15 +206,6 @@ app.get('/indicadores/qualidade/:maquina', authenticateJWT, async (req, res) => 
     }
 });
 
-// Rota para acessar indicadores de operadores
-app.get('/indicadores/operadores', authenticateJWT, async (req, res) => {
-    try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/operadores`);
-        res.json(response.data);
-    } catch (error) {
-        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
-    }
-});
 
 // Rota para acessar indicadores de operadores
 app.get('/indicadores/operadores', authenticateJWT, async (req, res) => {
@@ -267,12 +258,6 @@ app.get('/indicadores/operadores_maquina/:maquina/:startDate/:endDate', authenti
         res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
     }
 });
-
-
-
-
-
-
 
 
 // Rota para add mock de dados
