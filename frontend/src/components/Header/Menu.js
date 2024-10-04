@@ -33,27 +33,27 @@ const Menu = () => {
         <Item
           name="Estoque"
           icon={<RiBox3Fill />}
-          active={caminho.includes("/people") ? "active" : ""}
+          active={caminho.includes("/estoque") ? "active" : ""}
         />
         <Item
           name="Relatórios"
           icon={<RiPagesLine />}
-          active={caminho.includes("/people") ? "active" : ""}
+          active={caminho.includes("/relatorios") ? "active" : ""}
         />
         <Item
           name="Manutenção"
           icon={<LuWrench />}
-          active={caminho.includes("/people") ? "active" : ""}
+          active={caminho.includes("/manutencao") ? "active" : ""}
         />
         <Item
           name="PCP"
           icon={<FaToolbox />}
-          active={caminho.includes("/people") ? "active" : ""}
+          active={caminho.includes("/pcp") ? "active" : ""}
         />
         <Item
           name="Treinamentos"
           icon={<LuPencilRuler />}
-          active={caminho.includes("/people") ? "active" : ""}
+          active={caminho.includes("/treinamentos") ? "active" : ""}
         />
         <li>
           <button onClick={handleLogout}>

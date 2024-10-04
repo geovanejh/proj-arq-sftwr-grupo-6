@@ -1,4 +1,5 @@
 import DetailInformation from "../../Charts/CircularProgressBar/DetailInformation";
+import { calculateColor } from "../../utils/utils";
 import { OperadorMetric, OperatorListItem } from "./OperatorListItem.styled";
 
 const OperatorsPanelItem = ({
@@ -9,16 +10,6 @@ const OperatorsPanelItem = ({
   qualidade,
   disponibilidade,
 }) => {
-  const calculateColor = (number) => {
-    if (number >= 75) {
-      return "#29cc97";
-    } else if (number >= 40) {
-      return "#fec400";
-    } else {
-      return "#f12b2c";
-    }
-  };
-
   return (
     <OperatorListItem>
       <div>

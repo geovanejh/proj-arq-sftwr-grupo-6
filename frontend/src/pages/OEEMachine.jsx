@@ -40,6 +40,22 @@ const OEEMachine = () => {
           qualidade: "74",
           disponibilidade: "98",
         },
+        {
+          nome_operador: "Arthur",
+          id_operador: 3,
+          geral: "10",
+          performance: "12",
+          qualidade: "74",
+          disponibilidade: "98",
+        },
+        {
+          nome_operador: "Manuel",
+          id_operador: 4,
+          geral: "10",
+          performance: "12",
+          qualidade: "74",
+          disponibilidade: "98",
+        },
       ],
     });
   };

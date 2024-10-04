@@ -7,7 +7,7 @@ const MainPanel = ({ oee }) => {
   return (
     <MainPanelContainer>
       <div>
-        <DetailInformation score={oee.geral} /> Geral
+        <DetailInformation score={oee.geral} /> OEE
       </div>
       <div>
         <DetailInformation score={oee.qualidade} /> Qualidade
