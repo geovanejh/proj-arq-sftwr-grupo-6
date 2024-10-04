@@ -4,8 +4,8 @@ class Indicadores {
   constructor() {
     this.pool = mysql.createPool({
       host: 'localhost',     
-      user: 'root', 
-      password: 'root',   
+      user: 'indicador_user', 
+      password: '12qwaszx',   
       database: 'mes_app',    
       waitForConnections: true,
       connectionLimit: 10,

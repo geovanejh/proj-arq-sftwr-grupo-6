@@ -53,6 +53,15 @@ app.get('/indicadores/oee/:id_maquina', async (req, res) => {
     }
 });
 
+// Rota para obter lista de maquinas
+app.get('/indicadores/maquinas', async (req, res) => {
+    try {
+        const maquinas = await indicadores.listMachines();
+        res.status(200).json(maquinas);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar lista de máquinas.' });
+    }
+});
 // Rota para obter a Disponibilidade média de todas as máquinas
 app.get('/indicadores/disponibilidade', async (req, res) => {
     try {
