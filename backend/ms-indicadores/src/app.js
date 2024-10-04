@@ -55,6 +55,27 @@ app.get('/indicadores/oee', async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar OEE.' });
     }
 });
+// rota para obter o OEE medio de todas as maquinas por data
+app.get('/indicadores/oee/:startDate/:endDate', async (req, res) => {
+    const { startDate, endDate } = req.params;
+    try {
+        const oee = await indicadores.get_OEE(null,startDate, endDate);
+        res.status(200).json(oee);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar OEE.' });
+    }
+});
+// rota para obter o OEE medio de uma maquina por data
+app.get('/indicadores/oee/:id_maquina/:startDate/:endDate', async (req, res) => {
+    const { id_maquina, startDate, endDate } = req.params;
+    try {
+        const oee = await indicadores.get_OEE(id_maquina, startDate, endDate);
+        res.status(200).json(oee);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar OEE.' });
+    }
+});
+
 /**
  * @swagger
  * /indicadores/oee/{maquina}:
@@ -95,10 +116,10 @@ app.get('/indicadores/oee', async (req, res) => {
  */
 
 // Rota para obter o OEE médio de uma máquina específica
-app.get('/indicadores/oee/:maquina', async (req, res) => {
-    const { maquina } = req.params;
+app.get('/indicadores/oee/:id_maquina', async (req, res) => {
+    const { id_maquina } = req.params;
     try {
-        const oeeMaquina = await indicadores.get_OEE(maquina);
+        const oeeMaquina = await indicadores.get_OEE(id_maquina);
         res.status(200).json(oeeMaquina);
     } catch (error) {
         res.status(500).json({ message: `Erro ao buscar OEE da máquina ${maquina}.` });
@@ -423,6 +444,18 @@ app.get('/indicadores/operadores', async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar OEE dos operadores.' });
     }
 });
+
+// Rota para obter o OEE médio dos operadores por data
+app.get('/indicadores/operadores/:startDate/:endDate', async (req, res) => {
+    const { startDate, endDate } = req.params;
+    try {
+        const operadores = await indicadores.get_Operadores(null, startDate, endDate);
+        res.status(200).json(operadores);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar OEE dos operadores.' });
+    }
+});
+
 /**
  * @swagger
  * /indicadores/operadores/{operador}:
@@ -463,15 +496,26 @@ app.get('/indicadores/operadores', async (req, res) => {
  */
 
 // Rota para obter o OEE médio de um operador específico
-app.get('/indicadores/operadores/:operador', async (req, res) => {
-    const { operador } = req.params;
+app.get('/indicadores/operadores/:id_operador', async (req, res) => {
+    const { id_operador } = req.params;
     try {
-        const oeeOperador = await indicadores.get_Operadores(operador);
+        const oeeOperador = await indicadores.get_Operadores(id_operador);
         res.status(200).json(oeeOperador);
     } catch (error) {
         res.status(500).json({ message: `Erro ao buscar OEE do operador ${operador}.` });
     }
 });
+
+app.get('/indicadores/operadores/:id_operador/:startDate/:endDate', async (req, res) => {
+    const { id_operador, startDate, endDate } = req.params;
+    try {
+        const oeeOperador = await indicadores.get_Operadores(id_operador, startDate, endDate);
+        res.status(200).json(oeeOperador);
+    } catch (error) {
+        res.status(500).json({ message: `Erro ao buscar OEE do operador ${operador}.` });
+    }
+});
+
 /**
  * @swagger
  * /indicadores/operadores_maquina/{maquina}/{startDate}/{endDate}:

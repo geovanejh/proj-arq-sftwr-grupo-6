@@ -29,7 +29,7 @@ class Indicadores {
       query += ` AND io.id_maquina = '${id_maquina}'`;
     }
     if (startDate && endDate) {
-      query += ` AND io.data_hora BETWEEN '${startDate}' AND '${endDate}'`;
+      query += ` AND io.data_hora BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'`;
     }
   
       query += ' GROUP BY io.id_maquina';
@@ -78,7 +78,7 @@ class Indicadores {
       WHERE 1=1
     `;
     if (startDate && endDate) {
-      query += ` AND io.data_hora BETWEEN '${startDate}' AND '${endDate}'`;
+      query += ` AND io.data_hora BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'`;
     }
     query += `
       GROUP BY io.id_maquina
@@ -115,7 +115,7 @@ class Indicadores {
   
     
     if (startDate && endDate) {
-      query += ` AND io.data_hora BETWEEN '${startDate}' AND '${endDate}'`;
+      query += ` AND io.data_hora BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'`;
     }
   
     
@@ -148,7 +148,7 @@ class Indicadores {
       FROM indicadores_oee io
       JOIN operadores o ON io.id_operador = o.id_operador
       WHERE io.id_maquina = '${id_maquina}' 
-        AND io.data_hora BETWEEN '${startDate}' AND '${endDate}'
+        AND io.data_hora BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'
       GROUP BY io.id_operador, data
       ORDER BY data, io.id_operador;
     `;
