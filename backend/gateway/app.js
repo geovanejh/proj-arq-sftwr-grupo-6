@@ -105,7 +105,7 @@ app.get('/indicadores/oee/:startDate/:endDate', authenticateJWT, async (req, res
 // rota para obter o OEE medio de uma maquina por data
 app.get('/indicadores/oee/:id_maquina/:startDate/:endDate', authenticateJWT, async (req, res) => {
     try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oee/${id_maquina}/${req.params.startDate}/${req.params.endDate}`);
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oee/${req.params.id_maquina}/${req.params.startDate}/${req.params.endDate}`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
