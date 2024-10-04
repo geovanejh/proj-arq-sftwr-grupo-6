@@ -94,15 +94,36 @@ app.get('/indicadores/oee', authenticateJWT, async (req, res) => {
     }
 });
 
-// Rota para acessar indicadores de OEE de uma máquina específica
-app.get('/indicadores/oee/:maquina', authenticateJWT, async (req, res) => {
+// Rota para obter o OEE médio de operadores por data
+app.get('/indicadores/oee/:startDate/:endDate', authenticateJWT, async (req, res) => {
     try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oee/${req.params.maquina}`);
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oee/${req.params.startDate}/${req.params.endDate}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
+    }
+});
+
+// rota para obter o OEE medio de uma maquina por data
+app.get('/indicadores/oee/:id_maquina/:startDate/:endDate', authenticateJWT, async (req, res) => {
+    try {
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oee/${id_maquina}/${req.params.startDate}/${req.params.endDate}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
+    }
+});
+
+// Rota para acessar indicadores de OEE de uma máquina específica
+app.get('/indicadores/oee/:id_maquina', authenticateJWT, async (req, res) => {
+    try {
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/oee/${req.params.id_maquina}`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE da máquina.' });
     }
 });
+
 
 // Rota para acessar a disponibilidade media de uma maquina especifica
 app.get('/indicadores/disponibilidade', authenticateJWT, async (req, res) => {
@@ -177,15 +198,47 @@ app.get('/indicadores/operadores', authenticateJWT, async (req, res) => {
     }
 });
 
-// Rota para obter o OEE médio de um operador específico
-app.get('/indicadores/operadores/:operador', authenticateJWT, async (req, res) => {
+// Rota para acessar indicadores de operadores
+app.get('/indicadores/operadores', authenticateJWT, async (req, res) => {
     try {
-        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/operadores/${req.params.operador}`);
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/operadores`);
         res.json(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
     }
 });
+
+// rota para obter o OEE medio de todas as maquinas por data
+app.get('/indicadores/operadores/:startDate/:endDate', authenticateJWT, async (req, res) => {
+    try {
+        console.log(`${process.env.INDICADORES_SERVICE_URL}/indicadores/operadores/${req.params.startDate}/${req.params.endDate}`);
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/operadores/${req.params.startDate}/${req.params.endDate}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
+    }
+});
+
+// rota para obter o OEE medio de todas as maquinas por data
+app.get('/indicadores/operadores/:id_operador', authenticateJWT, async (req, res) => {
+    try {
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/operadores/${req.params.id_operador}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
+    }
+});
+
+// rota para obter o OEE medio de todas as maquinas por data
+app.get('/indicadores/operadores/:id_operador/:startDate/:endDate', authenticateJWT, async (req, res) => {
+    try {
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/operadores/${req.params.id_operador}/${req.params.startDate}/${req.params.endDate}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
+    }
+});
+
 
 // Rota para obter o OEE médio de um operador específico
 app.get('/indicadores/operadores_maquina/:maquina/:startDate/:endDate', authenticateJWT, async (req, res) => {
@@ -196,6 +249,11 @@ app.get('/indicadores/operadores_maquina/:maquina/:startDate/:endDate', authenti
         res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE dos operadores.' });
     }
 });
+
+
+
+
+
 
 
 
