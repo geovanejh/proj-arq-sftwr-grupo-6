@@ -20,12 +20,13 @@ function randomNumber(min, max) {
 
 // Função para gerar dados mockados
 function generateMockData() {
-    const maquinas = ['Máquina 1', 'Máquina 2', 'Máquina 3', 'Máquina 4', 'Máquina 5'];
-    const operadores = ['Operador 1', 'Operador 2', 'Operador 3', 'Operador 4', 'Operador 5'];
+    // Mapeie os IDs das máquinas e operadores
+    const maquinas = [1, 2, 3, 4, 5]; // IDs das máquinas
+    const operadores = [1, 2, 3, 4, 5]; // IDs dos operadores
 
     const data_hora = moment().format('YYYY-MM-DD HH:mm:ss');
-    const maquina = maquinas[Math.floor(Math.random() * maquinas.length)];
-    const operador = operadores[Math.floor(Math.random() * operadores.length)];
+    const id_maquina = maquinas[Math.floor(Math.random() * maquinas.length)];
+    const id_operador = operadores[Math.floor(Math.random() * operadores.length)];
     const tempo_planejado_producao = 200;
     const tempo_parada_nao_planejada = Math.floor(randomNumber(50, 60));
     const tempo_operacao_real = tempo_planejado_producao - tempo_parada_nao_planejada;
@@ -42,8 +43,8 @@ function generateMockData() {
 
     return {
         data_hora,
-        maquina,
-        operador,
+        id_maquina,  // Mudança aqui para usar ID
+        id_operador, // Mudança aqui para usar ID
         tempo_planejado_producao,
         tempo_parada_nao_planejada,
         tempo_operacao_real,
@@ -66,19 +67,28 @@ async function insertMockData() {
     try {
         const mockData = generateMockData();
         const query = `INSERT INTO indicadores_oee 
-                       (data_hora, maquina, operador, tempo_planejado_producao, 
+                       (data_hora, id_maquina, id_operador, tempo_planejado_producao, 
                         tempo_parada_nao_planejada, tempo_operacao_real, tempo_ciclo_ideal, 
                         tempo_ciclo_real, quantidade_total_produzida, quantidade_unidades_boas, 
                         quantidade_refugos, disponibilidade, desempenho, qualidade, oee) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`; 
 
         await connection.execute(query, [
-            mockData.data_hora, mockData.maquina, mockData.operador,
-            mockData.tempo_planejado_producao, mockData.tempo_parada_nao_planejada,
-            mockData.tempo_operacao_real, mockData.tempo_ciclo_ideal,
-            mockData.tempo_ciclo_real, mockData.quantidade_total_produzida,
-            mockData.quantidade_unidades_boas, mockData.quantidade_refugos,
-            mockData.disponibilidade, mockData.desempenho, mockData.qualidade, mockData.oee
+            mockData.data_hora,
+            mockData.id_maquina, // Mudança aqui para usar ID
+            mockData.id_operador, // Mudança aqui para usar ID
+            mockData.tempo_planejado_producao,
+            mockData.tempo_parada_nao_planejada,
+            mockData.tempo_operacao_real,
+            mockData.tempo_ciclo_ideal,
+            mockData.tempo_ciclo_real,
+            mockData.quantidade_total_produzida,
+            mockData.quantidade_unidades_boas,
+            mockData.quantidade_refugos,
+            mockData.disponibilidade,
+            mockData.desempenho,
+            mockData.qualidade,
+            mockData.oee
         ]);
 
         console.log('Dados mockados inseridos com sucesso!');
@@ -88,6 +98,7 @@ async function insertMockData() {
         await connection.end();
     }
 }
+
 
 let insertInterval;
 
