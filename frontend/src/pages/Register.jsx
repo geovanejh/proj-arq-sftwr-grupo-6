@@ -49,7 +49,7 @@ const Users = () => {
     <AuthPage>
       <AuthContainer>
         <img src={logo} alt="" />
-        <h3>People Dashboard</h3>
+        <h3>Sistema MES</h3>
         <h2>Registre sua conta</h2>
         <AuthForm onSubmit={formik.handleSubmit}>
           <FormField

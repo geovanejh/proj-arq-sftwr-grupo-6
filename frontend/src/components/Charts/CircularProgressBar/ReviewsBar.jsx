@@ -6,13 +6,11 @@ import "react-circular-progressbar/dist/styles.css";
 const ReviewsBar = (props) => {
   const { score } = props;
 
-  // function for calculating the color
   const calcColor = (percent, start, end) => {
     let a = percent / 100,
       b = (end - start) * a,
       c = b + start;
 
-    // return an CSS hsl color string
     return "hsl(" + c + ", 100%, 50%)";
   };
 
@@ -22,7 +20,7 @@ const ReviewsBar = (props) => {
         <CircularProgressbar
           value={value}
           text={`${value} %`}
-          circleRatio={0.7} /* Make the circle only 0.7 of the full diameter */
+          circleRatio={0.7}
           styles={{
             trail: {
               strokeLinecap: "butt",

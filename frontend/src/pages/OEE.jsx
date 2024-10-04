@@ -13,6 +13,9 @@ const OEE = () => {
 
   const setup = async () => {
     //fetch maquinas aqui
+
+    //chamada pra api
+
     setOeeData({
       qualidade: "67",
       performance: "53",
@@ -25,25 +28,41 @@ const OEE = () => {
         id_maquina: 1,
         nome_maquina: "Maquina 1",
         qualidade: "10",
-        performance: "5",
-        disponibilidade: "10",
-        geral: "15",
+        performance: "55",
+        disponibilidade: "80",
+        geral: "95",
       },
       {
         id_maquina: 2,
         nome_maquina: "Maquina 2",
         qualidade: "10",
-        performance: "5",
-        disponibilidade: "10",
-        geral: "15",
+        performance: "45",
+        disponibilidade: "98",
+        geral: "45",
       },
       {
         id_maquina: 3,
         nome_maquina: "Maquina 3",
-        qualidade: "10",
-        performance: "5",
-        disponibilidade: "10",
-        geral: "15",
+        qualidade: "99",
+        performance: "52",
+        disponibilidade: "33",
+        geral: "56",
+      },
+      {
+        id_maquina: 4,
+        nome_maquina: "Maquina 4",
+        qualidade: "23",
+        performance: "58",
+        disponibilidade: "93",
+        geral: "99",
+      },
+      {
+        id_maquina: 5,
+        nome_maquina: "Maquina 5",
+        qualidade: "21",
+        performance: "34",
+        disponibilidade: "69",
+        geral: "3",
       },
     ]);
     // try {

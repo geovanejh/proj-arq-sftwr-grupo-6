@@ -96,6 +96,7 @@ export const OperatorsPanelContainer = styled.div`
       line-height: 18px;
       letter-spacing: 0.2px;
       color: #9fa2b4;
+      cursor: pointer;
     }
   }
 `;
