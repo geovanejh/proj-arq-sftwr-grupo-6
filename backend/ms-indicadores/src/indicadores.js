@@ -138,15 +138,22 @@ class Indicadores {
     }
   }
   
-
   async get_OEE_Operadores_PorDia(id_maquina, startDate, endDate) {
+    // Ajustando a query para trazer mais informações dos operadores e da máquina
     let query = `
       SELECT 
+        m.nome_maquina AS maquina,
+        m.id_maquina,
+        o.id_operador,
         o.nome AS operador, 
         DATE(io.data_hora) AS data,
-        CONCAT(ROUND(AVG(io.oee) * 100, 2), '%') AS OEE
+        ROUND(AVG(io.oee) * 100, 2) AS OEE,
+        ROUND(AVG(io.desempenho) * 100, 2) AS performance,
+        ROUND(AVG(io.qualidade) * 100, 2) AS qualidade,
+        ROUND(AVG(io.disponibilidade) * 100, 2) AS disponibilidade
       FROM indicadores_oee io
       JOIN operadores o ON io.id_operador = o.id_operador
+      JOIN maquinas m ON io.id_maquina = m.id_maquina
       WHERE io.id_maquina = '${id_maquina}' 
         AND io.data_hora BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'
       GROUP BY io.id_operador, data
@@ -155,24 +162,40 @@ class Indicadores {
     
     try {
       const [rows] = await this.pool.query(query);
-      let result = {};
-    
+      
+      if (rows.length === 0) {
+        return {};  // Retornar vazio se não houver resultados
+      }
+  
+      // Estrutura para armazenar a resposta final
+      let result = {
+        id_maquina: rows[0].id_maquina,        // Usar a primeira linha para obter o id e nome da máquina
+        nome_maquina: rows[0].maquina,
+        geral: `${rows[0].OEE}%`,              // Exemplo de uso direto da média de OEE geral da máquina
+        performance: `${rows[0].performance}%`,
+        qualidade: `${rows[0].qualidade}%`,
+        disponibilidade: `${rows[0].disponibilidade}%`,
+        operadores: []
+      };
+  
+      // Iterando sobre os resultados e construindo o array de operadores
       rows.forEach(row => {
-        const { operador, data, OEE } = row;
-        if (!result[data]) {
-          result[data] = {};
-        }
-        result[data][operador] = OEE;
+        result.operadores.push({
+          id_operador: row.id_operador,
+          nome_operador: row.operador,
+          geral: `${row.OEE}%`,
+          performance: `${row.performance}%`,
+          qualidade: `${row.qualidade}%`,
+          disponibilidade: `${row.disponibilidade}%`
+        });
       });
-    
+      
       return result;
     } catch (error) {
       console.error('Erro ao buscar OEE dos operadores por dia:', error);
       throw error;
     }
   }
-
-  
 
 }
 
