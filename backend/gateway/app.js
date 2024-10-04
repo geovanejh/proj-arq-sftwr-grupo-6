@@ -124,6 +124,16 @@ app.get('/indicadores/oee/:id_maquina', authenticateJWT, async (req, res) => {
     }
 });
 
+// Rota para obter lista de maquinas
+app.get('/indicadores/maquinas', authenticateJWT, async (req, res) => {
+    try {
+        const response = await axios.get(`${process.env.INDICADORES_SERVICE_URL}/indicadores/maquinas`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json({ message: 'Erro ao acessar o OEE da máquina.' });
+    }
+});
+
 
 // Rota para acessar a disponibilidade media de uma maquina especifica
 app.get('/indicadores/disponibilidade', authenticateJWT, async (req, res) => {
