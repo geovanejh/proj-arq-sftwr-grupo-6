@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading/Loading";
 import { api } from "../api";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext();
 
@@ -32,8 +33,7 @@ const AuthProvider = ({ children }) => {
       await api.post("/auth/create", user);
       navigate("/");
     } catch (error) {
-      const msg = error.response.data.message;
-      //   toast.error(msg);
+      toast.error("Erro ao registrar conta");
     }
     setLoading(false);
   };
@@ -43,12 +43,12 @@ const AuthProvider = ({ children }) => {
       setLoading(true);
       const { data } = await api.post("/auth/login", user);
       localStorage.setItem("token", data.token);
-      api.defaults.headers.common["Authorization"] = data.token;
+      api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
       setAuth(true);
       navigate("/indicadores");
+      toast.success("Login efetuado com sucesso!");
     } catch (error) {
-      alert("erro");
-      //   toast.error("Login ou senha incorretos.");
+      toast.error("Login ou senha incorretos.");
     }
     setLoading(false);
   };

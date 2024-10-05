@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const OperatorListItem = styled.div`
   display: grid;
-  grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
   border-bottom: 1.5px solid #dfe0eb;
   padding: 24px 32px 24px 32px;
 
@@ -85,7 +85,7 @@ export const OperatorsPanelContainer = styled.div`
   }
 
   ul > li:first-child {
-    grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
     display: grid;
     border-bottom: 1.5px solid #dfe0eb;
     padding: 0 32px 12px 32px;
@@ -97,6 +97,9 @@ export const OperatorsPanelContainer = styled.div`
       letter-spacing: 0.2px;
       color: #9fa2b4;
       cursor: pointer;
+
+      display: flex;
+      gap: 6px;
     }
   }
 `;

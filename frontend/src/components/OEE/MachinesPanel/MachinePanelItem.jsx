@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ListItem } from "../../FlatList/ListItem.styled";
 import { OperadorMetric } from "../OperatorsPanel/OperatorListItem.styled";
-import { calculateColor } from "../../utils/utils";
+import { calculateColor, removePercentage } from "../../../utils/utils";
 
 const MachinePanelItem = ({
   id,
@@ -26,26 +26,36 @@ const MachinePanelItem = ({
         <p>{machine}</p>
       </div>
       <div>
-        <OperadorMetric style={{ backgroundColor: calculateColor(geral) }}>
+        <OperadorMetric
+          style={{ backgroundColor: calculateColor(removePercentage(geral)) }}
+        >
           {geral}
         </OperadorMetric>
       </div>
       <div>
         <OperadorMetric
-          style={{ backgroundColor: calculateColor(disponibilidade) }}
+          style={{
+            backgroundColor: calculateColor(removePercentage(disponibilidade)),
+          }}
         >
           {disponibilidade}
         </OperadorMetric>
       </div>
       <div>
         <OperadorMetric
-          style={{ backgroundColor: calculateColor(performance) }}
+          style={{
+            backgroundColor: calculateColor(removePercentage(performance)),
+          }}
         >
           {performance}
         </OperadorMetric>
       </div>
       <div>
-        <OperadorMetric style={{ backgroundColor: calculateColor(qualidade) }}>
+        <OperadorMetric
+          style={{
+            backgroundColor: calculateColor(removePercentage(qualidade)),
+          }}
+        >
           {qualidade}
         </OperadorMetric>
       </div>

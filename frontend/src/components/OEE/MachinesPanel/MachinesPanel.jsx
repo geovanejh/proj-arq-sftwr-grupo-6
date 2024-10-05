@@ -7,7 +7,7 @@ import {
   sortedOperators,
   filteredMachines,
   renderSortIcon,
-} from "../../utils/utils";
+} from "../../../utils/utils";
 
 const MachinesPanel = ({ machines }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,6 +21,9 @@ const MachinesPanel = ({ machines }) => {
   const sortedMachines = sortedOperators(machines, sortColumn, sortDirection);
   const filteredMachinesList = filteredMachines(sortedMachines, searchQuery);
 
+  if (!machines || machines.length === 0) {
+    return <div>Loading...</div>;
+  }
   return (
     <MachinesPanelContainer>
       <div>

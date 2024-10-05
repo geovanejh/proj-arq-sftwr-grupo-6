@@ -14,6 +14,15 @@ export const calculateColor = (number) => {
   }
 };
 
+export const removePercentage = (value) => {
+  if (!value) return "0";
+  return value.replace("%", "");
+};
+
+export const getIntegerPart = (value) => {
+  return value.split(".")[0];
+};
+
 export const handleSort = (
   column,
   sortColumn,

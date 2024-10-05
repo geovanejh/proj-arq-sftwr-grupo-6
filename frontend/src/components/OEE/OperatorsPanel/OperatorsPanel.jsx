@@ -7,7 +7,7 @@ import {
   sortedOperators,
   filteredOperators,
   renderSortIcon,
-} from "../../utils/utils";
+} from "../../../utils/utils";
 
 const OperatorsPanel = ({ operators, maquina }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,7 +24,7 @@ const OperatorsPanel = ({ operators, maquina }) => {
   return (
     <OperatorsPanelContainer>
       <div>
-        <h2>Operadores da máquina {maquina}</h2>
+        <h2>Operadores da máquina {maquina} no período selecionado</h2>
         <SearchField
           placeholder="Pesquisar..."
           value={searchQuery}

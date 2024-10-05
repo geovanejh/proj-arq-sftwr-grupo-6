@@ -7,9 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { AuthPage } from "../components/Auth/AuthPage";
 import { AuthContainer } from "../components/Auth/AuthContainer";
 import { AuthForm } from "../components/Auth/LoginForm";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Users = () => {
+  //ESTA PÁGINA NÃO ESTÁ SENDO UTILIZADA ATUALMENTE NO PROJETO.
+  //ESTA PÁGINA NÃO ESTÁ SENDO UTILIZADA ATUALMENTE NO PROJETO.
+  //ESTA PÁGINA NÃO ESTÁ SENDO UTILIZADA ATUALMENTE NO PROJETO.
+  //ESTA PÁGINA NÃO ESTÁ SENDO UTILIZADA ATUALMENTE NO PROJETO.
+
   const navigate = useNavigate();
+  const { handleRegister } = useContext(AuthContext);
 
   Yup.addMethod(Yup.string, "senhaIgual", function (errorMessage) {
     return this.test(`test-password-equals`, errorMessage, function (value) {
@@ -29,10 +37,10 @@ const Users = () => {
       confirmaSenha: "",
     },
     onSubmit: (values) => {
-      // handleRegister({
-      //   login: values.login,
-      //   senha: values.senha,
-      // });
+      handleRegister({
+        login: values.login,
+        senha: values.senha,
+      });
     },
     validationSchema: Yup.object({
       login: Yup.string()

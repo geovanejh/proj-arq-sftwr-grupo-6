@@ -2,29 +2,30 @@ import React from "react";
 import { DateFilterContainer } from "./DateFilter.styled";
 import { Button } from "../../Button/Button.styled";
 
-const DateFilter = ({ dateFilter, setDateFilter, voltar }) => {
+const DateFilter = ({ value, onChange, voltar }) => {
   return (
     <DateFilterContainer>
       <div>{voltar && voltar}</div>
+
       <div>
         <Button
           primary
-          className={dateFilter === 1 ? "active" : ""}
-          onClick={() => setDateFilter(1)}
+          className={value === 1 ? "active" : ""}
+          onClick={() => onChange(1)}
         >
           24h
         </Button>
         <Button
           primary
-          className={dateFilter === 7 ? "active" : ""}
-          onClick={() => setDateFilter(7)}
+          className={value === 7 ? "active" : ""}
+          onClick={() => onChange(7)}
         >
           7d
         </Button>
         <Button
           primary
-          className={dateFilter === 30 ? "active" : ""}
-          onClick={() => setDateFilter(30)}
+          className={value === 30 ? "active" : ""}
+          onClick={() => onChange(30)}
         >
           30d
         </Button>

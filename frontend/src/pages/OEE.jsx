@@ -5,91 +5,72 @@ import MainPanel from "../components/OEE/MainPanel/MainPanel";
 import { MainContent } from "../components/PageContent/MainContent";
 import MachinesPanel from "../components/OEE/MachinesPanel/MachinesPanel";
 import DateFilter from "../components/OEE/DateFilter/DateFilter";
+import toast from "react-hot-toast";
+import { api } from "../api";
+import { subDays, format } from "date-fns";
+import Loading from "../components/Loading/Loading";
 
 const OEE = () => {
-  const [machinesData, setMachinesData] = useState();
-  const [oeeData, setOeeData] = useState();
+  const [machinesData, setMachinesData] = useState([]);
+  const [oeeData, setOeeData] = useState({});
   const [dateFilter, setDateFilter] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const setup = async () => {
-    //fetch maquinas aqui
+    setLoading(true);
+    const firstDate = format(subDays(new Date(), dateFilter), "yyyy-MM-dd");
+    const endDate = format(new Date(), "yyyy-MM-dd");
 
-    //chamada pra api
+    try {
+      const { data } = await api.get(
+        `/indicadores/oee/${firstDate}/${endDate}`
+      );
 
-    setOeeData({
-      qualidade: "67",
-      performance: "53",
-      disponibilidade: "76",
-      geral: "8",
-    });
+      setOeeData(data);
 
-    setMachinesData([
-      {
-        id_maquina: 1,
-        nome_maquina: "Maquina 1",
-        qualidade: "10",
-        performance: "55",
-        disponibilidade: "80",
-        geral: "95",
-      },
-      {
-        id_maquina: 2,
-        nome_maquina: "Maquina 2",
-        qualidade: "10",
-        performance: "45",
-        disponibilidade: "98",
-        geral: "45",
-      },
-      {
-        id_maquina: 3,
-        nome_maquina: "Maquina 3",
-        qualidade: "99",
-        performance: "52",
-        disponibilidade: "33",
-        geral: "56",
-      },
-      {
-        id_maquina: 4,
-        nome_maquina: "Maquina 4",
-        qualidade: "23",
-        performance: "58",
-        disponibilidade: "93",
-        geral: "99",
-      },
-      {
-        id_maquina: 5,
-        nome_maquina: "Maquina 5",
-        qualidade: "21",
-        performance: "34",
-        disponibilidade: "69",
-        geral: "3",
-      },
-    ]);
-    // try {
-    //   //const { data } = await api.get(`/indicadores/separados/maquinas`);
+      const responseMachines = await api.get(
+        `/indicadores/maquinas/${firstDate}/${endDate}`
+      );
 
-    //   if (data.erro) {
-    //     //toast.error("CEP não encontrado.");
-    //   } else {
-    //     console.log(data);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   //toast.error("Erro ao buscar CEP.");
-    // }
+      console.log("machinesResponse: ", responseMachines.data);
+
+      const newArr = responseMachines.data.map((item, index) => {
+        return {
+          id_maquina: item.id_maquina,
+          nome_maquina: `Maquina ${item.id_maquina}`,
+          qualidade: item.Qualidade,
+          performance: item.Desempenho,
+          disponibilidade: item.Disponibilidade,
+          geral: item.OEE,
+        };
+      });
+      setMachinesData(newArr);
+
+      toast.success("Sucesso ao buscar dados.");
+    } catch (error) {
+      toast.error("Um erro aconteceu, tente novamente.", {
+        style: {
+          marginLeft: "255px",
+        },
+      });
+    }
+
+    setLoading(false);
   };
 
   useEffect(() => {
     setup();
-  }, []);
+  }, [dateFilter]);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <PageContainer>
-      <PageHeader title="Indicadores OEE" />
+      <PageHeader title="OEE" />
       <MainContent>
-        <DateFilter setDateFilter={setDateFilter} dateFilter={dateFilter} />
-        {oeeData && <MainPanel oee={oeeData} />}
-        {machinesData && <MachinesPanel machines={machinesData} />}
+        <DateFilter value={dateFilter} onChange={setDateFilter} />
+        <MainPanel oeeData={oeeData} />
+        <MachinesPanel machines={machinesData} />
       </MainContent>
     </PageContainer>
   );

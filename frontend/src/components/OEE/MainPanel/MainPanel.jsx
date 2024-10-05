@@ -1,23 +1,38 @@
+import React from "react";
 import DetailInformation from "../../Charts/CircularProgressBar/DetailInformation";
 import { MainPanelContainer } from "./MainPanel.styled";
+import { removePercentage, getIntegerPart } from "../../../utils/utils";
 
-const MainPanel = ({ oee }) => {
-  const lang = "pt-BR";
+const MainPanel = ({ oeeData }) => {
+  if (!oeeData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <MainPanelContainer>
       <div>
-        <DetailInformation score={oee.geral} /> OEE
+        <DetailInformation
+          score={getIntegerPart(removePercentage(oeeData.geral))}
+        />
+        OEE
       </div>
       <div>
-        <DetailInformation score={oee.qualidade} /> Qualidade
+        <DetailInformation
+          score={getIntegerPart(removePercentage(oeeData.disponibilidade))}
+        />
+        Disponibilidade
       </div>
       <div>
-        <DetailInformation score={oee.performance} />
+        <DetailInformation
+          score={getIntegerPart(removePercentage(oeeData.performance))}
+        />
         Performance
       </div>
       <div>
-        <DetailInformation score={oee.disponibilidade} /> Disponibilidade
+        <DetailInformation
+          score={getIntegerPart(removePercentage(oeeData.qualidade))}
+        />
+        Qualidade
       </div>
     </MainPanelContainer>
   );

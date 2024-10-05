@@ -2,19 +2,20 @@ import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import MainPage from "./pages/MainPage";
 import OEE from "./pages/OEE";
 import OEEMachine from "./pages/OEEMachine";
 import { MainContent, RouterContainer } from "./Routers.styled";
 import Header from "./components/Header/Header";
 import NotFound from "./pages/NotFound";
 import { AuthContext } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 const Router = () => {
   const { auth } = useContext(AuthContext);
 
   return (
     <RouterContainer>
+      <Toaster />
       {auth && <Header />}
       <MainContent auth={auth}>
         <Routes>
